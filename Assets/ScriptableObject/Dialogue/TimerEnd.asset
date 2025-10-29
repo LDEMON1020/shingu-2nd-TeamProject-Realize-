@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad44f25a35a1bc4aae842e8ec83583c, type: 3}
   m_Name: TimerEnd
   m_EditorClassIdentifier: 
-  characterName: TimerTest
-  characterImage: {fileID: 0}
+  characterName: 'times up '
+  characterImage: {fileID: 21300000, guid: 719cb8ada953ccd47bbfacb97c0dbd27, type: 3}
   dialogueLines:
   - time is up
   - you died
+  - go back TItle
+  - see you later
+  - Good Bye
