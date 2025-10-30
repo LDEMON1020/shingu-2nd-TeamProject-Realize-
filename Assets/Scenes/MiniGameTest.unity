@@ -2657,7 +2657,7 @@ MonoBehaviour:
   CharacterImage: {fileID: 858321191}
   characternameText: {fileID: 1430902979}
   dialogueText: {fileID: 2032205141}
-  nextButton: {fileID: 1925798259}
+  interrogationButtons: []
   defaultCharacterImage: {fileID: 0}
   typingSpeed: 0.05
   skipTypingOnClick: 1
@@ -2860,7 +2860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2089192297
 RectTransform:
   m_ObjectHideFlags: 0

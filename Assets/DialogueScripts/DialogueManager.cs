@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
     public Image CharacterImage;                        //캐릭터 이미지 표시하는 Image UI
     public TextMeshProUGUI characternameText;           //캐릭터 이름 표시하는 텍스트
     public TextMeshProUGUI dialogueText;                //대화 내용 표시하는 텍스트
-    public Button nextButton;                           //"다음" 버튼 ( 클릭 시 다음 대화로 )
+    public GameObject[] interrogationButtons;          //심문 선택지 버튼들
 
     [Header("기본 설정")]
     public Sprite defaultCharacterImage;                //캐릭터 이미지가 없을 때 사용할 기본 이미지
@@ -32,7 +32,6 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         DialoguePanel.SetActive(false);                          //대화창 숨기기
-        nextButton.onClick.AddListener(HandleNextInput);        //"다음" 버튼에 새로운 입력 처리 연결
     }
 
     // Update is called once per frame
@@ -75,7 +74,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void ShowCurrentLine()          //혀ㅑㄴ재 대화 줄의 내용을 타이핑 효과와 함께 화면에 표시하는 함수
+    void ShowCurrentLine()          //현재 대화 줄의 내용을 타이핑 효과와 함께 화면에 표시하는 함수
     {
         if (currentDialogue != null && currentLineIndex < currentDialogue.dialogueLines.Count)       //대화 데이터와 인덱스가 유효한지 확인
         {
@@ -124,7 +123,7 @@ public class DialogueManager : MonoBehaviour
         if (isTyping && skipTypingOnClick)
         {
             CompleteTyping();                           //타이핑 중이면 즉시 완료 
-        }
+        }   
         else if (!isTyping)
         {
             ShowNextLine();                             //타이핑 완료 상태면 다음 줄로
@@ -169,3 +168,10 @@ public class DialogueManager : MonoBehaviour
         ShowCurrentLine();                                              //첫 번째 대화 내용 표시
     }
 }
+
+
+
+// 선택지형 다이얼로그를 만들때 구조를 어떻게 해야 할까
+// 현재 npc가 말하는중이다 할때 ? ㅈㅁ 아니다
+// 이거 다이얼로그를 여러개를 만들어놓고 그걸로 선택지에 따라서 다른 다이얼로그를 불러오는 방식으로 하고 그거는
+// 아이템코드에 따라서 버튼이 생성될 예정이니까 그거에 따라서 버튼 클릭시 해당 다이얼로그를 불러오도록 하면 될듯
