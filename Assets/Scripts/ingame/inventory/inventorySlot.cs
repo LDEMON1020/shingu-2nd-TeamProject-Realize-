@@ -49,18 +49,25 @@ public class inventorySlot : MonoBehaviour, IPointerClickHandler
         item = null;
         UpdateSlotUI();
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (InventoryMAnager.instance == null) return;
+        // 1. 데이터 관리자(InventoryMAnager)가 아닌 'UI 관리자(InventoryUI)'를 호출합니다.
+        if (InventoryUI.instance == null)
+        {
+            Debug.LogError("InventoryUI.instance is null. Is InventoryUI.cs in this scene?");
+            return;
+        }
 
         if (item != null)
         {
-            InventoryMAnager.instance.ShowItemInfo(item);
+            // 2. InventoryUI의 ShowItemInfo 함수를 호출합니다.
+            InventoryUI.instance.ShowItemInfo(item);
         }
         else
         {
-            InventoryMAnager.instance.HideDesCripitonPanel();
+            // 3. InventoryUI의 HideDesCripitonPanel 함수를 호출합니다.
+            InventoryUI.instance.HideDesCripitonPanel();
         }
     }
 }
+

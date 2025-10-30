@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Linq; 
+
 
 public class InventoryMAnager : MonoBehaviour
 {
@@ -10,112 +9,51 @@ public class InventoryMAnager : MonoBehaviour
 
     [Header("인벤토리 설정")]
     public int inventorySize = 20;
-    public GameObject inventroyUI;
-    public Transform itemSlotParent;
-    public GameObject itemSlotPrefab;
 
-    [Header("키 입력")]
-    public KeyCode inventoryToggleKey = KeyCode.I;
-    public List<inventorySlot> itemSlots = new List<inventorySlot>();
-    private bool isInventoryOpen = false;
+    public List<ItemData> items = new List<ItemData>();
 
-    [Header("아이템 정보패널")]
-    public Image descriptionImage;
-    public TextMeshProUGUI descriptionName;
-    public TextMeshProUGUI descriptionText;
-    public GameObject descriptionPanel;
 
     void Awake()
     {
-        if(instance == null) instance = this;
-        else Destroy(gameObject);
-    }
-
-    void Start()
-    {
-        CreateInventorySlots();
-        inventroyUI.SetActive(isInventoryOpen);
-        HideDesCripitonPanel();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(inventoryToggleKey))
+        if (instance == null)
         {
-            ToggleInventory();
+            instance = this;
+            // ▼ [추가] 씬이 바뀌어도 파괴되지 않도록 설정
+            DontDestroyOnLoad(gameObject);
         }
-    }
-
-    void CreateInventorySlots()
-    {
-        for (int i = 0; i < inventorySize; i++)
+        else
         {
-            GameObject slotObject = Instantiate(itemSlotPrefab, itemSlotParent);
-            inventorySlot slot = slotObject.GetComponent<inventorySlot>();
-            itemSlots.Add(slot);
-        }
-    }
-
-    public void ToggleInventory()
-    {
-        isInventoryOpen = !isInventoryOpen;
-        inventroyUI.SetActive(isInventoryOpen);
-
-        if (!isInventoryOpen)
-        {
-            HideDesCripitonPanel();
+            Destroy(gameObject);
         }
     }
 
     public bool Additem(ItemData item)
     {
-       foreach (inventorySlot slot in itemSlots)
-       {
-           if (slot.item == null)
-           {
-               slot.Setitem(item);
-               return true;
-           }
+        // 데이터 리스트(items)의 개수를 확인
+        if (items.Count >= inventorySize)
+        {
+            Debug.Log("인벤토리가 가득 찼습니다.");
+            return false;
         }
-       Debug.Log("인벤토리가 가득 찼습니다.");
-        return false;
+
+        // 데이터 리스트에 바로 추가
+        items.Add(item);
+        return true;
     }
 
     public void RemoveItem(ItemData item)
     {
-        foreach (inventorySlot slot in itemSlots)
+        // 데이터 리스트(items)에서 직접 제거
+        if (items.Contains(item))
         {
-            if (slot.item == item)
-            {
-                slot.ClearSlot();
-                return;
-            }
+            items.Remove(item);
         }
     }
 
-    //아이템 정보 패널 표시
-
-    public void ShowItemInfo(ItemData data)
+    public bool HasItem(int itemID)
     {
-        if (data == null)
-        {
-            return;
-        }
-
-        descriptionImage.sprite = data.itemicon;
-        descriptionName.text = data.itemName;
-        descriptionText.text = data.itemDescription;
-
-        descriptionPanel.SetActive(true);
-        descriptionImage .enabled = true;
-    }
-
-    public void HideDesCripitonPanel()
-    {
-        descriptionPanel.SetActive(false);
-        descriptionName.text = "";
-        descriptionText.text = "";
-        descriptionImage.sprite = null;
-        descriptionImage.enabled = false;
+        // items 리스트에서 itemID가 일치하는 아이템이 있는지 검색
+        return items.Any(item => item.itemID == itemID);
     }
 }
+

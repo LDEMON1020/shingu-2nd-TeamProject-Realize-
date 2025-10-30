@@ -17,14 +17,10 @@ public class TimerTest : MonoBehaviour
     [Header("씬 이동 설정")] 
     public string sceneToLoad; //이동할 씬 이름
 
+    public StageEndManager stageEndManager;
+
     private float timeRemaining = 60f;
     private bool timerIsRunning = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -59,7 +55,7 @@ public class TimerTest : MonoBehaviour
         // 2. 혹시 다른 대화가 있었다면 강제 종료
         if (dialogueManager.IsDialogueActive())
         {
-            dialogueManager.SkipDialogue();
+            dialogueManager.SkipAllDialogue();
         }
 
         // 3. 연결된 다이얼로그를 시작

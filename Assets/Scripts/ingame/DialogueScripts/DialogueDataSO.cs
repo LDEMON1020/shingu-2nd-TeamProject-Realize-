@@ -13,15 +13,4 @@ public class DialogueDataSO : ScriptableObject
     [Header("대화 내용")]
     [TextArea(3, 0)]                                             //Inspector에서 여러 줄 입력 가능하게 만듦
     public List<string> dialogueLines = new List<string>();     //대화 내용들 (순서대로 출력됨)
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

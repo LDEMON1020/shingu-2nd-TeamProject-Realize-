@@ -7,8 +7,11 @@ public class ItemData : ScriptableObject
     public string itemName;
     public Sprite itemicon;
     public int itemID;
-     
+
     [Header("아이템 설명")]
     [TextArea(5, 10)]
-    public string itemDescription;
+    public string unidentifiedDescription;
+
+    [TextArea(5, 10)]
+    public string identifiedDescription;
 }
