@@ -103,7 +103,7 @@ public class InventoryMAnager : MonoBehaviour
         }
 
         descriptionImage.sprite = data.itemicon;
-        descriptionName.text = data.itenmName;
+        descriptionName.text = data.itemName;
         descriptionText.text = data.itemDescription;
 
         descriptionPanel.SetActive(true);

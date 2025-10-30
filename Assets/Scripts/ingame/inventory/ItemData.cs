@@ -4,7 +4,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     [Header("아이템 고유 식별정보")]
-    public string itenmName;
+    public string itemName;
     public Sprite itemicon;
     public int itemID;
      
